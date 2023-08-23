@@ -27,21 +27,16 @@ public class ExtractZipFileTest {
 
             ZipEntry zipEntry;
             while ((zipEntry = zipInputStream.getNextEntry()) != null) {
-                if (zipEntry.getName().equals("zip.zip")) {
+                if (zipEntry.getName().equals("qa_guru.csv")) {
 
                     Reader reader = new InputStreamReader(zipInputStream);
                     CSVReader csvReader = new CSVReader(reader);
                     List<String[]> content = csvReader.readAll();
 
                     Assertions.assertEquals(3, content.size());
-
-                    final String[] firstRow = content.get(0);
-                    final String[] secondRow = content.get(1);
-                    final String[] thirdRow = content.get(2);
-
-                    Assertions.assertArrayEquals(new String[]{"Teacher", "lesson"}, firstRow);
-                    Assertions.assertArrayEquals(new String[]{"Tuchs", "Files"}, secondRow);
-                    Assertions.assertArrayEquals(new String[]{"Vasenkov", "REST Assured"}, thirdRow);
+                    Assertions.assertArrayEquals(new String[]{"Teacher", "lesson"}, content.get(0));;
+                    Assertions.assertArrayEquals(new String[]{"Tuchs", "Files"}, content.get(1));;
+                    Assertions.assertArrayEquals(new String[]{"Vasenkov", "REST Assured"}, content.get(2));;
                 }
             }
         }
@@ -55,7 +50,6 @@ public class ExtractZipFileTest {
 
             ZipEntry zipEntry;
             while ((zipEntry = zis.getNextEntry()) != null) {
-                final String name = zipEntry.getName();
                 if (zipEntry.getName().equals("sample-xlsx-file.xlsx")) {
                     XLS xls = new XLS(zis);
 
@@ -77,7 +71,6 @@ public class ExtractZipFileTest {
 
             ZipEntry zipEntry;
             while ((zipEntry = zipInputStream.getNextEntry()) != null) {
-                final String name = zipEntry.getName();
                 if (zipEntry.getName().equals("Git шпора_)-1.pdf")) {
                     PDF pdf = new PDF(zipInputStream);
                     Assertions.assertTrue(pdf.text.contains("Шпаргалка по Git"));
